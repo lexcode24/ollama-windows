@@ -10,7 +10,8 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
       - CUDA_VISIBLE_DEVICES=0
       - OLLAMA_CUDA=1
-      - OLLAMA_GPU_LAYERS=99
+      - OLLAMA_GPU_LAYERS=128
+      - OLLAMA_GPU_MEMORY=14
     volumes:
       - ollama_data:/root/.ollama
     ports:
@@ -18,13 +19,13 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '6'
-          memory: 12G
+          cpus: '8'
+          memory: 24G
         reservations:
           devices:
             - driver: nvidia
               count: 1
-              capabilities: [gpu]
+              capabilities: [gpu, compute]
     ulimits:
       memlock: -1
       stack: 67108864
